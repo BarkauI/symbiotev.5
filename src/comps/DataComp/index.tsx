@@ -1,32 +1,36 @@
-import React, { useEffect } from 'react'
-import { addUserDocs, updateDisplayName, updateUserUID, useAppDispatch, useAppSelector } from 'store'
-import {auth, getFire} from 'scripts'
+import { Data, auth, getFire } from 'scripts'
+import { editThis, useAppDispatch, useAppSelector } from 'store'
 
 import { onAuthStateChanged } from 'firebase/auth'
+import { useEffect } from 'react'
 
 const DataComp = () => {
   const dis = useAppDispatch()
-  const userUID = useAppSelector(state => state.fire.userUID)
-
+  const edit = (key: keyof Data.storeDataType, pass: any) => dis(editThis([key, pass]))
+  const userUID = useAppSelector(state => state.data.userUID)
   
-  onAuthStateChanged(auth, user => {
-    if (user) {
-      dis(updateDisplayName(user.displayName))
-      dis(updateUserUID(user.uid))
-    }
-  })
-
-
-
+  
   useEffect(() => {
-    (async()=>{
-      dis(updateDisplayName('Adomas Gaudi'))
-      const obj = await getFire(userUID)
-      console.log(obj);
-      dis(addUserDocs(obj))
-      
-    })()
-  }, [])
+
+    // add a authentication state listener, that will
+    onAuthStateChanged(auth, user => {
+      if (user) {
+        edit('displayName', user.displayName)
+        edit('userUID', user.uid)
+      }
+    })
+    // when useruid changes, get docs based on uid and dispatch to userdocs and page
+    if(userUID){
+      ;(async()=>{
+        const obj = await getFire(userUID)
+        edit('userDocs', obj)
+        edit('pageDoc', obj[0])
+      })()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userUID, dis])
+
+  // this components is just for the data import
   return null
 }
 

@@ -1,13 +1,24 @@
 import { RootState, useAppDispatch, useAppSelector } from './hooks'
-import fireSlice, {addPageDoc, addUserDocs, updateDisplayName, updateUserUID} from './fire.slice'
-import uiSlice, {toggleSidebar} from './ui.slice'
+import dataSlice, {
+  editThis,
+  updateSym,
+  updateTitle
+} from './data.slice'
+import uiSlice, { toggleSidebar, toggleTheme } from './ui.slice'
 
 import store from './configure'
 
 export {
-  store, toggleSidebar, uiSlice , 
-  useAppDispatch, useAppSelector,
-  fireSlice, addUserDocs, addPageDoc, updateUserUID, updateDisplayName
+  store, 
+  toggleSidebar, 
+  uiSlice,
+  useAppDispatch, 
+  useAppSelector,
+  dataSlice, 
+  updateSym, 
+  updateTitle,
+  toggleTheme,
+  editThis
 }
 
-export type {RootState}
+export type { RootState }

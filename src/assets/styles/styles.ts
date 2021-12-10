@@ -1,16 +1,8 @@
-import Checkbox from "@mui/material/Checkbox";
-import { createGlobalStyle } from "styled-components";
-import { createTheme } from "@material-ui/core";
-import styled from "@mui/system/styled";
+import 'styled-components';
 
-const fontfamilyArray = [
-  "'Azeret Mono', monospace",
-  "'Roboto', sans-serif;",
-  "'Yellowtail', cursive;",
-  "'proggy', monospace"
-]
+import { createGlobalStyle } from 'styled-components/macro';
 
-const GlobalStylesGeneral = ` 
+const BaseCSS = createGlobalStyle` 
 
   // general init styles
   html{ 
@@ -24,63 +16,43 @@ const GlobalStylesGeneral = `
   }
   *{box-sizing: border-box}
 
-
-
 `
-
-const GlobalStylesOther = `  
+const FunkyCSS = createGlobalStyle`  
   
   // general styles
   *{
-    // outline: 1px dashed red!important;
+    /* outline: 1px dashed #ffd5d5 !important;  */
   }
+
 
   body{
     border-radius: 2px; 
-    font-size: 20px;
-    font-family: ${fontfamilyArray[3]}
   }
 
-  p{opacity: 0.6; line-height: 1.5;}
+  p{opacity: 0.6; line-height: 1.5;} 
 
   img{max-width: 100%}
 `
 
-const GlobalStyles = createGlobalStyle` 
-  ${GlobalStylesGeneral}
-  ${GlobalStylesOther}
+//
+
+//
+
+//
+
+//
+
+//
+
+const GeneralCSS = createGlobalStyle` 
+  body{
+    font-family: ${({theme}) => theme.typography.fontFamily};
+    font-size: ${({theme}) => theme.typography.fontSize}px;
+    background: ${({ theme: {bg}  }) => bg?.main };
+    ${({theme}) => theme.text?.col} 
+  }
 `
 
-const StyledTheme = {
-  light: {
-    background: "white",
-    font: "#111"
-  },
-  dark: {
-    background: "black",
-    font: "#eee"
-  }
-}
 
 
-// declare module '@mui/material/styles' {
-//   interface Theme {
-//     status: {
-//       danger: any;
-//     };
-//   }
-//   // allow configuration using `createTheme`
-//   interface ThemeOptions {
-//     status?: {
-//       danger?: any;
-//     };
-//   }
-// }
-
-
-
-const theme = createTheme({});
-
-
-
-export {GlobalStyles, StyledTheme, theme}
+export { BaseCSS, FunkyCSS, GeneralCSS }

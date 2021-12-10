@@ -1,37 +1,27 @@
-import { GoogleAuthProvider, signInWithPopup } from '@firebase/auth'
+import {Data, googleLogin} from 'scripts'
+import { editThis, useAppDispatch } from 'store'
 
-import { Button } from '@mui/material'
-import React from 'react'
-import { auth } from 'scripts'
-import styled from 'styled-components'
-
-const CenterDiv = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-`
-
+import { ButtonX } from 'comps'
+import {CenterDiv} from './styles'
 
 const Welcome = () => {
+  const dis = useAppDispatch()
+  const edit = (key: keyof Data.storeDataType, pass: any) => dis(editThis([key, pass]))
 
 
-  const googleLogin = async() => {
-
-    // // Sign in using a popup.
-    const provider = new GoogleAuthProvider();
-    provider.addScope('profile');
-    provider.addScope('email');
-    const result = await signInWithPopup(auth, provider);
-    console.log(result);
+  const googleLoginHandler = async() => {
+    const res = await googleLogin()
     
-
+    if(res){
+      console.log('dispatch', res.user.uid);
+      edit('displayName', res.user.displayName)
+      edit('userUID', res.user.uid)
+    }
   }
-
-
+  
   return (
     <CenterDiv>
-      <Button onClick={googleLogin} >Log-In with Google</Button>
+      <ButtonX onClick={googleLoginHandler} >LOGIN with GOOGLE</ButtonX>
     </CenterDiv>
   )
 }

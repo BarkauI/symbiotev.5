@@ -1,7 +1,30 @@
 import { Data, P } from './modules'
-import {auth, db} from './firebase/config'
+import {
+  auth,
+  createNewDoc,
+  createNewSym,
+  db,
+  deleteSym,
+  deleteUserDoc,
+  getFire,
+  googleLogin,
+  updateSymFire,
+  updateTitleFire
+} from './firebase'
+import { getKey, onFocusBlur } from './utils'
 
-import {getFire} from './firebase/getFire'
-
-export {auth, db, getFire}
-export type {Data, P}
+export {
+  auth,
+  db,
+  getFire,
+  updateSymFire,
+  onFocusBlur,
+  updateTitleFire,
+  createNewDoc,
+  googleLogin,
+  createNewSym,
+  deleteSym,
+  deleteUserDoc,
+  getKey
+}
+export type { Data, P }

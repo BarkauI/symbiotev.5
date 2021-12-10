@@ -1,3 +1,5 @@
-import {GlobalStyles, StyledTheme, theme} from './styles/styles'
+import { BaseCSS, FunkyCSS, GeneralCSS } from './styles/styles'
 
-export {GlobalStyles, StyledTheme, theme}
+import { themeFunction } from './styles/theme'
+
+export { BaseCSS, FunkyCSS,  themeFunction, GeneralCSS }
